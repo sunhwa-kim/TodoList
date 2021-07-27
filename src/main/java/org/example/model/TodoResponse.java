@@ -15,11 +15,11 @@ public class TodoResponse {
     private Boolean completed;
     private String url;
 
-    public TodoResponse(TodoEntity todoEntity) {
-        this.id = todoEntity.getId();
-        this.title = todoEntity.getTitle();
-        this.order = todoEntity.getOrder();
-        this.completed = todoEntity.getCompleted();
+    public TodoResponse(Todo todo) {
+        this.id = todo.getId();
+        this.title = todo.getTitle();
+        this.order = todo.getOrder();
+        this.completed = todo.getCompleted();
 
         // base url 변경 or port 변경시마다 별도 작업  -> config or property
         this.url = "http://localhost:8080/" + this.id;

@@ -1,7 +1,7 @@
 package org.example.service;
 
 import lombok.AllArgsConstructor;
-import org.example.model.TodoEntity;
+import org.example.model.Todo;
 import org.example.model.TodoRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,29 +16,29 @@ public class TodoService {
 
     private TodoRepository todoRepository;
 
-    public TodoEntity add(TodoRequest request) {
-        TodoEntity entity = new TodoEntity();
+    public Todo add(TodoRequest request) {
+        Todo entity = new Todo();
         entity.setTitle(request.getTitle());
         entity.setOrder(request.getOrder());
         entity.setCompleted(request.getCompleted());
         return this.todoRepository.save(entity);
     }
 
-    public TodoEntity searchById(Long id) {
+    public Todo searchById(Long id) {
         return this.todoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); // 404
     }
 
-    public List<TodoEntity> searchAll() {
+    public List<Todo> searchAll() {
         return this.todoRepository.findAll();
     }
 
-    public TodoEntity updateById(Long id, TodoRequest request) {
-        TodoEntity todoEntity = this.searchById(id);
-        if(request.getTitle() != null) todoEntity.setTitle(request.getTitle());
-        if(request.getOrder() != null) todoEntity.setOrder(request.getOrder());
-        if(request.getCompleted() != null) todoEntity.setCompleted(request.getCompleted());
-        return this.todoRepository.save(todoEntity);
+    public Todo updateById(Long id, TodoRequest request) {
+        Todo todo = this.searchById(id);
+        if(request.getTitle() != null) todo.setTitle(request.getTitle());
+        if(request.getOrder() != null) todo.setOrder(request.getOrder());
+        if(request.getCompleted() != null) todo.setCompleted(request.getCompleted());
+        return this.todoRepository.save(todo);
     }
 
     public void deleteById(Long id) {
